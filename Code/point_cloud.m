@@ -1,0 +1,19 @@
+image_path = "/home/labmember/Desktop/project/dataset/test/images/image01/0000000000.jpg"
+depth_map_path = "data/output/depth_image_saved.png"
+depthImage = imread(depth_map_path);
+colorImage = imread(image_path)
+focalLength      = [535.4, 539.2];
+principalPoint   = [320.1, 247.6];
+imageSize        = size(depthImage,[1,2]);
+intrinsics       = cameraIntrinsics(focalLength,principalPoint,imageSize);
+depthScaleFactor = 5e3;
+maxCameraDepth   = 5;
+ptCloud = pcfromdepth(depthImage,depthScaleFactor, intrinsics, ...
+                      ColorImage=colorImage, ...
+                      DepthRange=[0 maxCameraDepth]);
+pcshow(ptCloud, VerticalAxis="Y", VerticalAxisDir="Up", ViewPlane="YX");
+imagePoints = detectORBFeatures(im2gray(colorImage));
+ptCloud = pcfromdepth(depthImage,depthScaleFactor, intrinsics, ...
+                      ColorImage=colorImage, ...
+                      ImagePoints=imagePoints, ...
+                      DepthRange=[0 maxCameraDepth]);

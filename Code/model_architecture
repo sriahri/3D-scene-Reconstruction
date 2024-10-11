@@ -1,0 +1,59 @@
+digraph "Model Architecture" {
+	{
+		rank=same
+		Input [shape=box]
+		Encoder [shape=box]
+		"Residual Blocks" [shape=box]
+		Decoder [shape=box]
+	}
+	{
+		rank=same
+		UpConv6 [shape=box]
+		Iconv6 [shape=box]
+		UpConv5 [shape=box]
+		Iconv5 [shape=box]
+	}
+	{
+		rank=same
+		UpConv4 [shape=box]
+		Iconv4 [shape=box]
+		"Disp4 Layer" [shape=box]
+	}
+	{
+		rank=same
+		UpConv3 [shape=box]
+		Iconv3 [shape=box]
+		"Disp3 Layer" [shape=box]
+	}
+	{
+		rank=same
+		UpConv2 [shape=box]
+		Iconv2 [shape=box]
+		"Disp2 Layer" [shape=box]
+	}
+	{
+		rank=same
+		UpConv1 [shape=box]
+		Iconv1 [shape=box]
+		"Disp1 Layer" [shape=box]
+	}
+	Input -> Encoder
+	Encoder -> "Residual Blocks"
+	"Residual Blocks" -> Decoder
+	Decoder -> UpConv6
+	UpConv6 -> Iconv6
+	Iconv6 -> UpConv5
+	UpConv5 -> Iconv5
+	Iconv5 -> UpConv4
+	UpConv4 -> Iconv4
+	Iconv4 -> "Disp4 Layer"
+	"Disp4 Layer" -> UpConv3
+	UpConv3 -> Iconv3
+	Iconv3 -> "Disp3 Layer"
+	"Disp3 Layer" -> UpConv2
+	UpConv2 -> Iconv2
+	Iconv2 -> "Disp2 Layer"
+	"Disp2 Layer" -> UpConv1
+	UpConv1 -> Iconv1
+	Iconv1 -> "Disp1 Layer"
+}
